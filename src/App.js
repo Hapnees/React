@@ -1,23 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import PostCreate from "./components/PostCreate/PostCreate";
+import PostList from "./components/PostList/PostList";
+import './styles/App.css';
 
-function App() {
+const App = () => {
+
+  const [posts, setPosts] = useState([
+    {'id': 1, 'title': 'Some title', 'body': 'Some body'},
+    {'id': 2, 'title': 'Some title', 'body': 'Some body'},
+    {'id': 3, 'title': 'Some title', 'body': 'Some body'}
+  ]);
+
+  const [selectedSort, setSelectedSort] = useState('');
+
+  const sortPosts = (sort) => {
+    setSelectedSort(sort);
+  };
+
+  const createPost = (newPost) => {
+   setPosts([...posts, newPost]);
+  };
+
+  const removePost = (post) => {
+    setPosts(posts.filter(p => p.id !== post.id))
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <BrowserRouter>
+        <Routes>
+          <Route path='/'
+          element={<PostList 
+          sortPosts={sortPosts} 
+          selectedSort={selectedSort} 
+          remove={removePost} 
+          posts={posts}/>}/>
+          <Route path='post_create' element={<PostCreate create={createPost}/>}/>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

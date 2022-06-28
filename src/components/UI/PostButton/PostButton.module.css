@@ -1,0 +1,18 @@
+.btn{
+    background: #fff;
+    font-family: Hack;
+    cursor: pointer;
+    align-self: center;
+    border: 1px solid teal;
+    text-align: center;
+    color: teal;
+    font-size: 14px;
+
+    transition: all .3s linear;
+    padding: 2px 5px;
+}
+
+.btn:hover{
+    color: #fff;
+    background-color: teal;
+}
